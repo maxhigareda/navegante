@@ -1,0 +1,53 @@
+:root {
+  --primary-color: #1a1a2e; /* Dark navy */
+  --bg-color: #f7f7f7; /* Soft gray for mobile */
+  --text-main: #2b2b2b;
+  --text-secondary: #6e6e6e;
+  --divider: #eaeaea;
+  --surface: #ffffff;
+  --accent: #2b785d;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #e5e5e5; /* Outside mobile viewport */
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile First Wrapper */
+#root {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Modifiers */
+.no-animation * {
+  animation: none !important;
+  transition: none !important;
+}

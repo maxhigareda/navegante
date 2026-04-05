@@ -1,0 +1,147 @@
+.reader-screen {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.reader-screen.expanded {
+  background-color: var(--surface); /* Fondo más limpio para lectura profunda al expandir */
+}
+
+body.inclusive-mode .reader-screen.expanded {
+  background-color: #121212;
+}
+
+.reader-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--divider);
+}
+
+.icon-btn {
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reading-metadata {
+  background-color: var(--surface);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 2px solid var(--divider);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.r-meta-cover {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.r-meta-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.r-meta-info h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent);
+  font-size: 1.6rem;
+}
+
+.r-meta-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.r-meta-info strong {
+  color: var(--text-main);
+}
+
+.reader-content-body {
+  padding: 2rem 1.5rem 12rem 1.5rem; /* Aumentado a 12rem para liberar la toolbar */
+  flex: 1;
+  background-color: var(--surface);
+  position: relative;
+}
+
+body.inclusive-mode .reader-content-body,
+body.inclusive-mode .reading-metadata,
+body.inclusive-mode .reader-topbar {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+.expand-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.floating-minimize {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 50%;
+}
+
+body.inclusive-mode .floating-minimize {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.text-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Requisito neurológico de lectura y tamaño adaptativo */
+/* Requisito neurológico de lectura y tamaño adaptativo */
+.text-container p {
+  color: var(--text-main);
+  transition: all 0.2s ease-out;
+}
+
+.text-container.size-1 p {
+  font-size: 1.15rem;
+  line-height: 1.6em;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.75rem;
+}
+
+.tts-active {
+  background-color: rgba(43, 120, 93, 0.15); /* Color de realce suave de Mitos */
+  box-shadow: 0 0 0 4px rgba(43, 120, 93, 0.15);
+  border-radius: 4px;
+}
+
+.text-container.size-2 p {
+  font-size: 1.45rem;
+  line-height: 1.7em;
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+  color: var(--text-main);
+  transition: all 0.2s ease-out;
+}
+
+.text-container.size-3 p {
+  font-size: 1.8rem;
+  line-height: 1.8em;
+  letter-spacing: 0.04em;
+  margin-bottom: 2.25rem;
+  color: var(--text-main);
+  transition: all 0.2s ease-out;
+}
+
+body.inclusive-mode .text-container p {
+  color: #e0e0e0;
+}

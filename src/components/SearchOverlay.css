@@ -1,0 +1,108 @@
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--surface);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+#root .search-overlay {
+  position: absolute;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  border-bottom: 1px solid var(--divider);
+}
+
+.icon-btn-gray {
+  color: var(--text-secondary);
+  padding: 0.5rem;
+}
+
+.search-input-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+}
+
+.search-input-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.search-icon-sm {
+  color: var(--text-secondary);
+}
+
+.search-results {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.search-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2rem;
+}
+
+.no-results {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.search-result-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}
+
+.search-book-cover {
+  width: 60px;
+  height: 90px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.search-book-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-book-info h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.search-book-info p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}

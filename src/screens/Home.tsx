@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
 import { CATEGORIES, type Category, type Book } from '../data/books';
-import { fetchBooksByCategory } from '../lib/gutendex';
 import './Home.css';
 
 interface HomeProps {
@@ -12,31 +11,9 @@ interface HomeProps {
 
 export default function Home({ onCategorySelect, onBookSelect, onSearchOpen }: HomeProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sampleBooks, setSampleBooks] = useState<Book[]>(CATEGORIES.flatMap(c => c.books).slice(0, 2));
 
-  useEffect(() => {
-    let isMounted = true;
-    const loadNovedades = async () => {
-      // Cargamos "ficción" general para la seccion principal
-      const results = await fetchBooksByCategory('c-ficcion');
-      if (!isMounted) return;
-      if (results.length > 0) {
-        setSampleBooks(results.map(g => ({
-          id: `gutenberg-${g.id}`,
-          categoryId: 'c-ficcion',
-          title: g.title,
-          author: g.authors[0]?.name || 'Anónimo',
-          publisher: 'Proyecto Gutenberg',
-          year: g.authors[0]?.birth_year ? `${g.authors[0].birth_year} - ${g.authors[0].death_year || '?'}` : '',
-          tags: g.subjects.slice(0, 1),
-          color: '#e59a39',
-          readings: []
-        })));
-      }
-    };
-    loadNovedades();
-    return () => { isMounted = false; };
-  }, []);
+  // Seleccionamos un par de libros para Novedades y Favoritos como ejemplo
+  const sampleBooks = CATEGORIES.flatMap(c => c.books).slice(0, 2);
 
   return (
     <div className="home-screen">
@@ -100,8 +77,7 @@ export default function Home({ onCategorySelect, onBookSelect, onSearchOpen }: H
       <section className="home-section" style={{ paddingBottom: '80px' }}>
         <h2 className="section-title">Favoritos</h2>
         <div className="horizontal-scroll">
-          {/* Por ahora guardamos estos como estaticos hasta implementar sesion con Supabase completo */}
-          {CATEGORIES.flatMap(c => c.books).slice(2, 4).map(book => (
+          {sampleBooks.map(book => (
              <div key={`fav-${book.id}`} className="book-thumb" onClick={() => onBookSelect(book)}>
              <div className="book-thumb-cover" style={{ backgroundColor: book.color }}></div>
              <div className="book-thumb-info">

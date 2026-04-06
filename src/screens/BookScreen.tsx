@@ -29,7 +29,8 @@ export default function BookScreen({ book, onBack, onReadingSelect }: BookScreen
               <p className="b-meta"><b>Publicación:</b> {book.publisher}</p>
               <p className="b-meta"><b>Año:</b> {book.year}</p>
               <div className="b-tags">
-                {book.tags.map((t, i) => <span key={i} className="tag">{t}</span>)}
+                <span className="tag" style={{ backgroundColor: '#627282' }}>Español</span>
+                {book.tags.map((t, i) => <span key={i} className="tag" style={{ backgroundColor: book.color }}>{t}</span>)}
               </div>
            </div>
         </div>

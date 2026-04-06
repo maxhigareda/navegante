@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { ArrowLeft, Maximize2, Minimize2 } from 'lucide-react';
 import Toolbar from '../components/Toolbar';
 import type { Reading, Book } from '../data/books';
@@ -18,6 +18,17 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
   
   const [showControls, setShowControls] = useState(true);
   const [ttsRate, setTtsRate] = useState(1); // 1x, 1.25x, 1.5x
+
+  // Multiplicamos los párrafos por 6 para hacer los textos mucho más largos para pruebas de scroll
+  const extendedParagraphs = useMemo(() => {
+    return Array(6).fill(reading.paragraphs).flat();
+  }, [reading.paragraphs]);
+
+  // Calcular tiempo estimado de lectura (asumiendo ~200 palabras por minuto)
+  const estimatedReadingTime = useMemo(() => {
+    const totalWords = extendedParagraphs.join(' ').split(/\s+/).length;
+    return Math.ceil(totalWords / 200);
+  }, [extendedParagraphs]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -45,7 +56,7 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
   }, [reading.id]);
 
   const startAudioFrom = (startIndex: number, rateToUse: number) => {
-    const remainingParagraphs = reading.paragraphs.slice(startIndex);
+    const remainingParagraphs = extendedParagraphs.slice(startIndex);
     if (remainingParagraphs.length === 0) return;
 
     const joinedText = remainingParagraphs.join(' . ');
@@ -73,7 +84,7 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
 
     utterance.onboundary = (e) => {
       if (e.name === 'word') {
-        const idx = boundaryStarts.findIndex((start, i) => {
+        const idx = boundaryStarts.findIndex((start: number, i: number) => {
            const nextStart = boundaryStarts[i+1] || Infinity;
            return e.charIndex >= start && e.charIndex < nextStart;
         });
@@ -128,7 +139,7 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
     });
   };
 
-  const paragraphs = reading.paragraphs.map((text, i) => (
+  const paragraphElements = extendedParagraphs.map((text, i) => (
     <p key={i} className={activeParagraphIndex === i ? 'tts-active transition-colors' : 'transition-colors'}>{text}</p>
   ));
 
@@ -154,8 +165,9 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
           </div>
           <div className="r-meta-info">
             <h2>{reading.title}</h2>
-            <p>Ilustrado por:<br/><strong>{parentBook.author}</strong></p>
-            <div className="b-tags">
+            <p style={{ marginBottom: '4px' }}>Fecha: <strong>{parentBook.year}</strong></p>
+            <p>Tiempo de lectura: <strong>~{estimatedReadingTime} min</strong></p>
+            <div className="b-tags" style={{ marginTop: '8px' }}>
               {parentBook.tags.map(t => <span key={t} className="tag">{t}</span>)}
             </div>
           </div>
@@ -171,7 +183,7 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
           </div>
         )}
         <div className={`text-container size-${textSizeScale}`}>
-          {paragraphs}
+          {paragraphElements}
         </div>
       </main>
 

@@ -31,7 +31,6 @@ export default function CategoryScreen({ category, onBack, onBookSelect }: Categ
               <p className="b-meta">{book.publisher}</p>
               <p className="b-meta">{book.year}</p>
               <div className="b-tags">
-                <span className="tag" style={{ backgroundColor: '#627282' }}>Español</span>
                 {book.tags.map(t => <span key={t} className="tag" style={{ backgroundColor: book.color }}>{t}</span>)}
               </div>
             </div>

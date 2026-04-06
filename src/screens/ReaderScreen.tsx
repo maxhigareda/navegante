@@ -168,7 +168,6 @@ export default function ReaderScreen({ reading, parentBook, onBack }: ReaderScre
             <p style={{ marginBottom: '4px' }}>Fecha: <strong>{parentBook.year}</strong></p>
             <p>Tiempo de lectura: <strong>~{estimatedReadingTime} min</strong></p>
             <div className="b-tags" style={{ marginTop: '8px' }}>
-              <span className="tag" style={{ backgroundColor: '#627282' }}>Español</span>
               {parentBook.tags.map(t => <span key={t} className="tag" style={{ backgroundColor: parentBook.color }}>{t}</span>)}
             </div>
           </div>
